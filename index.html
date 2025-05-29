@@ -1,94 +1,189 @@
 <!DOCTYPE html>
 <html lang="pl">
-  <head>
+<head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Prosta Strona Albertolox</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>DayZ Klan LEGION</title>
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
     <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-        color: #333;
-      }
+        body {
+            margin: 0;
+            font-family: 'Share Tech Mono', monospace;
+            background: url('https://i.postimg.cc/7PJ6TN7R/7b6de3c9.jpg') no-repeat center center fixed;
+            background-size: cover;
+            color: #d2d2d2;
+            text-align: center;
+            animation: fadeIn 2s ease-in;
+        }
 
-      h1 {
-        color: #2c3e50;
-        margin-top: 20px;
-      }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-      .content {
-        padding: 20px;
-        background-color: #fff;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        max-width: 800px;
-        margin: 40px auto;
-      }
+        .banner {
+            width: 100%;
+            height: 120px;
+            background: url('https://i.postimg.cc/Cx8MRMqf/Legion123.png') no-repeat center center;
+            background-size: 1920px 140px; ;
+        }
 
-      img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        margin-bottom: 20px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
+        header {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-bottom: 1px solid #444;
+        }
 
-      img:hover {
-        transform: scale(1.03);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-      }
+        h1 {
+            margin: 10px 0;
+            font-size: 3em;
+            color: #dddddd;
+            text-shadow: 1px 1px 3px #000;
+        }
 
-      h2 {
-        color: #34495e;
-        margin-top: 40px;
-      }
+        nav a {
+            margin: 0 15px;
+            color: #ccc;
+            text-decoration: none;
+            font-weight: bold;
+        }
 
-      footer {
-        margin-top: 40px;
-        font-size: 0.9em;
-        color: #888;
-      }
+        nav a:hover {
+            color: #ffffff;
+        }
 
-      .bio {
-        background-color: #eaf2f8;
-        padding: 20px;
-        border-radius: 10px;
-        margin-top: 20px;
-      }
+        section {
+            background-color: rgba(0, 0, 0, 0.65);
+            margin: 20px auto;
+            padding: 40px 20px;
+            max-width: 800px;
+            border-radius: 10px;
+            box-shadow: 0 0 8px #111;
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .discord-info {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid #666;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px #000;
+        }
+
+        .discord-info img {
+            width: 70px;
+            height: 70px;
+        }
+
+        .discord-text {
+            text-align: left;
+        }
+
+        .discord-text h3 {
+            margin: 0 0 10px;
+            color: #ffffff;
+        }
+
+        .discord-text p {
+            margin: 5px 0;
+        }
+
+        .discord-text a {
+            color: #66ccff;
+            text-decoration: none;
+        }
+
+        .discord-text a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .discord-info {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .discord-text {
+                text-align: center;
+            }
+        }
     </style>
-  </head>
-  <body>
-    <h1>Witaj na mojej stronie! Sam zrobiłem ten projekt 💻</h1>
+</head>
+<body>
+    <!-- Baner Tego nie ruszaj bo zjebiesz reszte ;P  -->
+    <div class="banner"></div>
 
-    <div class="content">
-      <p>Oto Dzieło Alberta Marka, pseudonim: <strong>Albertolox</strong>:</p>
-      <img src="https://i.postimg.cc/CxbYqPgh/Zdj-cie-Whats-App-2025-04-05-o-20-28-06-3ec5e704.jpg" alt="WORLD WAR" />
-    </div>
+    <header>
+        <h1>LEGION</h1>
+        <nav>
+            <a href="#o-nas">O nas</a>
+            <a href="#czlonkowie">Członkowie</a>
+            <a href="#aktualnosci">Aktualności</a>
+            <a href="#kontakt">Kontakt</a>
+        </nav>
+    </header>
 
-    <div class="content bio">
-      <h2>Kim jestem?</h2>
-      <p>Cześć! Mam na imię Albert, ale w sieci jestem znany jako <strong>Albertolox</strong>. 
-        Interesuję się historią, projektowaniem graficznym i budowaniem niesamowitych rzeczy z LEGO. 
-        Lubię tworzyć strony internetowe i dzielić się moją pasją z innymi. Dzięki, że odwiedziłeś moją stronę!</p>
-    </div>
-
-    <div class="content">
-      <h2>Moje Projekty LEGO</h2>
-      <p>Uwielbiam budować z klocków LEGO. Oto kilka moich ulubionych konstrukcji:</p>
-      <img src="https://i.postimg.cc/qqTwCJVw/akwarium.png" />
-      <img src="https://i.postimg.cc/fb1BD786/image-50438145.jpg" />
-      <img src="https://i.postimg.cc/RFfGF38q/lego-warsztat-3.jpg" />
-      <img src="https://i.postimg.cc/FKYDMCVy/product-bi-01.jpg" />
-    </div>
+    <section id="o-nas">
+        <h2>O nas</h2>
+        <p>Jesteśmy elitarnym klanem LEGION w grze DayZ — taktyczni, zorganizowani i bezlitośni. Naszą siłą jest współpraca i doświadczenie. Walczymy o przetrwanie — i wygrywamy.</p>
+    </section>
+     <!-- wedle uznania ;P  -->
+    <section id="czlonkowie">
+        <h2>Członkowie</h2>
+        <ul>
+            <li>🪖 Dowódca: LEGION_Boss</li>
+            <li>🎯 Snajper: LEGION_EagleEye</li>
+            <li>💉 Medyk: LEGION_Healman</li>
+            <li>🧭 Zwiadowca: LEGION_Scout</li>
+        </ul>
+    </section>
+    <!-- tu sami cos wymyślcie  -->
+    <section id="aktualnosci">
+        <h2>Aktualności</h2>
+        <p><strong>28 maja 2025:</strong> LEGION przejął kontrolę nad regionem "Tisy Military Base"!</p>
+        <p><strong>20 maja 2025:</strong> Nowy snajper LEGION_SharpShot dołączył do składu!</p>
+        <p><strong>10 maja 2025:</strong> Udział w turnieju DayZ Clan Wars zakończony 2. miejscem!</p>
+    </section>
+    <!-- tu od discorda wedle uznania -->
+    <section id="kontakt">
+        <h2>Kontakt</h2>
+        <div class="discord-info">
+            <img src="https://i.postimg.cc/Pxq3NxRW/3legion.png" alt="Discord" />
+            <div class="discord-text">
+                <h3>Serwer Discord Klan LEGION</h3>
+                <p><strong>Status:</strong> Online</p>
+                <p><strong>Członkowie:</strong> 124 aktywnych</p>
+                <p><strong>Dołącz i walcz razem z nami:</strong></p>
+                <p><a href="https://discord.gg/XeqyDhmr8j" target="_blank" rel="noopener noreferrer">https://discord.gg/XeqyDhmr8j</a></p>
+            </div>
+        </div>
+    </section>
 
     <footer>
-      <p>🧱 Stworzono z pasją przez Albertolox • © 2025</p>
+        &copy; 2025 Klan LEGION | DayZ
     </footer>
-  </body>
+</body>
 </html>
-
-
