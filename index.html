@@ -1,71 +1,271 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Kliknij mnie!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet" />
-    <style>
-        body {
-            margin: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background: url('https://i.postimg.cc/7PJ6TN7R/7b6de3c9.jpg') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Share Tech Mono', monospace;
-            color: #d2d2d2;
-            text-align: center;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MARTWA STREFA XBOX DAYZ</title>
 
-        button {
-            background-color: rgba(0, 0, 0, 0.8);
-            border: 2px solid #888;
-            color: #d2d2d2;
-            padding: 20px 50px;
-            font-size: 2em;
-            cursor: pointer;
-            border-radius: 10px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 10px #000;
-        }
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, Helvetica, sans-serif;
+    }
 
-        button:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            color: #fff;
-            transform: scale(1.05);
-        }
+    body{
+      background:#0b0b0b;
+      color:white;
+      overflow-x:hidden;
+    }
 
-        img {
-            margin-top: 40px;
-            max-width: 80%;
-            border-radius: 10px;
-            box-shadow: 0 0 20px #000;
-            display: none;
-            animation: fadeIn 1s ease-in-out forwards;
-        }
+    header{
+      height:100vh;
+      background:
+        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
+        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop');
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:20px;
+    }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
-        }
-    </style>
+    .hero{
+      max-width:900px;
+    }
+
+    .hero h1{
+      font-size:70px;
+      color:#59ff7a;
+      text-shadow:0 0 20px #59ff7a;
+      margin-bottom:20px;
+    }
+
+    .hero p{
+      font-size:24px;
+      color:#ddd;
+      margin-bottom:30px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:15px 35px;
+      background:#59ff7a;
+      color:black;
+      text-decoration:none;
+      font-weight:bold;
+      border-radius:10px;
+      transition:0.3s;
+    }
+
+    .btn:hover{
+      background:white;
+      transform:scale(1.05);
+    }
+
+    section{
+      padding:80px 10%;
+    }
+
+    h2{
+      font-size:42px;
+      color:#59ff7a;
+      margin-bottom:25px;
+      text-align:center;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+      margin-top:40px;
+    }
+
+    .card{
+      background:#151515;
+      border:1px solid #2f2f2f;
+      padding:25px;
+      border-radius:15px;
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-10px);
+      border-color:#59ff7a;
+      box-shadow:0 0 20px rgba(89,255,122,0.3);
+    }
+
+    .card h3{
+      color:#59ff7a;
+      margin-bottom:15px;
+    }
+
+    .owner{
+      background:#111;
+      text-align:center;
+      border-top:2px solid #59ff7a;
+      border-bottom:2px solid #59ff7a;
+    }
+
+    .owner h2{
+      margin-bottom:10px;
+    }
+
+    .owner p{
+      font-size:22px;
+      color:#ddd;
+    }
+
+    .discord{
+      text-align:center;
+      background:#0f0f0f;
+    }
+
+    .discord-box{
+      margin-top:30px;
+      padding:30px;
+      background:#181818;
+      border-radius:20px;
+      border:1px solid #59ff7a;
+    }
+
+    footer{
+      padding:30px;
+      text-align:center;
+      background:black;
+      color:#888;
+      font-size:14px;
+    }
+
+    .highlight{
+      color:#59ff7a;
+      font-weight:bold;
+    }
+  </style>
 </head>
 <body>
-    <button id="showImage">Kliknij mnie wcale nie jestem podejżanym linkiem</button>
-    <img id="hiddenImage" src="https://i.postimg.cc/3rBDmpjH/86acd4c5-ebb1-4577-b8c3-89a12375595b.png" alt="Obrazek" />
 
-    <script>
-        const button = document.getElementById('showImage');
-        const image = document.getElementById('hiddenImage');
+<header>
+  <div class="hero">
+    <h1>MARTWA STREFA</h1>
+    <p>Najbardziej klimatyczny serwer <span class="highlight">XBOX DAYZ</span></p>
 
-        button.addEventListener('click', () => {
-            image.style.display = 'block';
-            button.style.display = 'none';
-        });
-    </script>
+    <a href="#dolacz" class="btn">DOŁĄCZ TERAZ</a>
+  </div>
+</header>
+
+<section>
+  <h2>O Serwerze</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>🔥 Survival</h3>
+      <p>
+        Walcz o przetrwanie, zbieraj loot, buduj bazy
+        i przetrwaj w świecie pełnym zagrożeń.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>⚔️ PvP & Eventy</h3>
+      <p>
+        Dynamiczne walki PvP, eventy administracji,
+        rajdy i specjalne nagrody dla graczy.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>🧟 Klimat DAYZ</h3>
+      <p>
+        Mroczny klimat, zombie, opuszczone miasta
+        i prawdziwa walka o życie.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<section class="owner">
+  <h2>Właściciel Serwera</h2>
+
+  <p>
+    👑 <span class="highlight">SZAMAN</span>
+  </p>
+
+  <br>
+
+  <p>
+    Administrator z klimatem i pasją do DAYZ.
+    Dba o porządek, eventy i dobrą zabawę dla całej społeczności.
+  </p>
+</section>
+
+<section id="dolacz" class="discord">
+  <h2>Jak Dołączyć?</h2>
+
+  <div class="discord-box">
+
+    <p><strong>1.</strong> Włącz DAYZ na Xbox</p>
+    <br>
+
+    <p><strong>2.</strong> Wejdź w zakładkę Community Servers</p>
+    <br>
+
+    <p><strong>3.</strong> Wyszukaj:</p>
+
+    <br>
+
+    <h3 style="color:#59ff7a; font-size:32px;">
+      MARTWA STREFA
+    </h3>
+
+    <br>
+
+    <p><strong>4.</strong> Dołącz i przetrwaj!</p>
+
+    <br><br>
+
+    <a href="#" class="btn">DISCORD SERWERA</a>
+
+  </div>
+</section>
+
+<section>
+  <h2>Dlaczego Warto?</h2>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>💀 Hardcore Klimat</h3>
+      <p>
+        Prawdziwy klimat apokalipsy i emocjonujące rozgrywki.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>🛡️ Aktywna Administracja</h3>
+      <p>
+        Administracja reaguje szybko i pomaga społeczności.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>🎁 Eventy i Nagrody</h3>
+      <p>
+        Regularne eventy, konkursy i wyjątkowe loot strefy.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  © 2026 MARTWA STREFA XBOX DAYZ | Właściciel: SZAMAN
+</footer>
+
 </body>
 </html>
