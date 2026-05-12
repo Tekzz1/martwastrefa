@@ -2,272 +2,201 @@
 <html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>MARTWA STREFA XBOX DAYZ</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MARTWA STREFA | Xbox DayZ Server</title>
   <style>
-    *{
-      margin:0;
-      padding:0;
-      box-sizing:border-box;
-      font-family:Arial, Helvetica, sans-serif;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: #050505;
+      color: #f2eadc;
+      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', Arial, sans-serif;
+      letter-spacing: 1px;
+      overflow-x: hidden;
     }
-
-    body{
-      background:#0b0b0b;
-      color:white;
-      overflow-x:hidden;
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,.25) 45%, rgba(0,0,0,.92) 100%),
+                  repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px);
+      pointer-events: none;
+      z-index: 50;
     }
-
-    header{
-      height:100vh;
-      background:
-        linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.9)),
-        url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?q=80&w=1600&auto=format&fit=crop');
-      background-size:cover;
-      background-position:center;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      text-align:center;
-      padding:20px;
+    a { color: inherit; text-decoration: none; }
+    .page { width: min(1180px, 96%); margin: 0 auto; border-left: 1px solid rgba(130,70,30,.45); border-right: 1px solid rgba(130,70,30,.45); }
+    nav {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 34px;
+      background: rgba(5,5,5,.86); backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(130,70,30,.55);
     }
-
-    .hero{
-      max-width:900px;
+    .brand { display: flex; align-items: center; gap: 12px; color: #eee0c7; }
+    .brand img { width: 58px; height: 58px; object-fit: cover; border-radius: 8px; }
+    .brand strong { font-size: 30px; line-height: .85; text-shadow: 0 0 16px #000; }
+    .navlinks { display: flex; gap: 34px; font-size: 16px; color: #eee; }
+    .xbox { color: #6dc92f; font-size: 28px; }
+    .hero {
+      min-height: 720px;
+      background: linear-gradient(90deg, rgba(0,0,0,.85), rgba(0,0,0,.2), rgba(0,0,0,.9)),
+                  url('img/martwa-strefa-banner.png') center/cover no-repeat;
+      display: grid; place-items: center;
+      text-align: center; padding: 90px 20px 40px;
+      border-bottom: 1px solid rgba(130,70,30,.55);
     }
-
-    .hero h1{
-      font-size:70px;
-      color:#59ff7a;
-      text-shadow:0 0 20px #59ff7a;
-      margin-bottom:20px;
+    .hero h1 {
+      font-size: clamp(72px, 13vw, 170px);
+      line-height: .78;
+      color: #efe3c8;
+      text-shadow: 0 8px 0 #250202, 0 0 28px #000;
+      letter-spacing: 4px;
     }
-
-    .hero p{
-      font-size:24px;
-      color:#ddd;
-      margin-bottom:30px;
+    .hero h1 span { display: block; color: #8e1512; }
+    .subtitle { margin: 25px auto 18px; font-size: clamp(26px, 4vw, 48px); color: #78c93a; }
+    .slogan { display: inline-block; padding: 12px 30px; background: rgba(100,0,0,.75); font-size: 24px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+      margin-top: 34px; padding: 18px 38px;
+      border: 2px solid #6fc531; border-radius: 6px;
+      background: rgba(15,40,5,.8); color: #fff; font-size: 24px;
+      box-shadow: 0 0 22px rgba(111,197,49,.45);
+      transition: .25s;
     }
-
-    .btn{
-      display:inline-block;
-      padding:15px 35px;
-      background:#59ff7a;
-      color:black;
-      text-decoration:none;
-      font-weight:bold;
-      border-radius:10px;
-      transition:0.3s;
+    .btn:hover { transform: scale(1.05); background: #6fc531; color: #071006; }
+    section { padding: 34px 24px; }
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card, .panel {
+      background: linear-gradient(180deg, rgba(15,15,15,.86), rgba(0,0,0,.96));
+      border: 1px solid rgba(130,70,30,.6);
+      box-shadow: inset 0 0 40px rgba(0,0,0,.8);
     }
-
-    .btn:hover{
-      background:white;
-      transform:scale(1.05);
-    }
-
-    section{
-      padding:80px 10%;
-    }
-
-    h2{
-      font-size:42px;
-      color:#59ff7a;
-      margin-bottom:25px;
-      text-align:center;
-    }
-
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-      gap:25px;
-      margin-top:40px;
-    }
-
-    .card{
-      background:#151515;
-      border:1px solid #2f2f2f;
-      padding:25px;
-      border-radius:15px;
-      transition:0.3s;
-    }
-
-    .card:hover{
-      transform:translateY(-10px);
-      border-color:#59ff7a;
-      box-shadow:0 0 20px rgba(89,255,122,0.3);
-    }
-
-    .card h3{
-      color:#59ff7a;
-      margin-bottom:15px;
-    }
-
-    .owner{
-      background:#111;
-      text-align:center;
-      border-top:2px solid #59ff7a;
-      border-bottom:2px solid #59ff7a;
-    }
-
-    .owner h2{
-      margin-bottom:10px;
-    }
-
-    .owner p{
-      font-size:22px;
-      color:#ddd;
-    }
-
-    .discord{
-      text-align:center;
-      background:#0f0f0f;
-    }
-
-    .discord-box{
-      margin-top:30px;
-      padding:30px;
-      background:#181818;
-      border-radius:20px;
-      border:1px solid #59ff7a;
-    }
-
-    footer{
-      padding:30px;
-      text-align:center;
-      background:black;
-      color:#888;
-      font-size:14px;
-    }
-
-    .highlight{
-      color:#59ff7a;
-      font-weight:bold;
+    .card img { width: 100%; height: 255px; object-fit: cover; display: block; filter: contrast(1.1) saturate(.85); }
+    .card-content { padding: 24px; }
+    h2 { color: #6fc531; font-size: 44px; margin-bottom: 16px; text-align: center; }
+    h3 { color: #6fc531; font-size: 30px; margin-bottom: 14px; }
+    p { font-family: Arial, sans-serif; letter-spacing: .2px; line-height: 1.6; font-size: 18px; color: #e4d7c7; }
+    .owner-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; align-items: stretch; }
+    .owner-box { padding: 36px; display: flex; flex-direction: column; justify-content: center; }
+    .owner-box .name { font-size: 62px; color: #6fc531; }
+    .gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+    .gallery img { width: 100%; height: 305px; object-fit: cover; border: 1px solid rgba(130,70,30,.6); }
+    .join { display: grid; grid-template-columns: 1.2fr .8fr; gap: 20px; }
+    .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; padding: 28px; text-align: center; }
+    .step strong { display: block; font-size: 56px; color: #6fc531; }
+    .step span { font-family: Arial, sans-serif; font-size: 15px; color: #eee; }
+    .discord-box { padding: 36px; text-align: center; }
+    .discord-link { margin-top: 22px; font-family: Arial, sans-serif; color: #cfcfcf; word-break: break-all; }
+    footer { padding: 28px; border-top: 1px solid rgba(130,70,30,.55); display: flex; justify-content: space-between; color: #b7aa99; }
+    @media (max-width: 850px) {
+      nav { flex-direction: column; gap: 15px; }
+      .navlinks { flex-wrap: wrap; justify-content: center; gap: 18px; }
+      .cards, .owner-grid, .join, .steps { grid-template-columns: 1fr; }
+      .hero { min-height: 620px; }
+      .gallery { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 10px; text-align: center; }
     }
   </style>
 </head>
 <body>
+  <div class="page">
+    <nav>
+      <a class="brand" href="#top">
+        <img src="img/martwa-strefa-logo.png" alt="Logo Martwa Strefa" />
+        <strong>MARTWA<br>STREFA</strong>
+      </a>
+      <div class="navlinks">
+        <a href="#top">STRONA GŁÓWNA</a>
+        <a href="#serwer">O SERWERZE</a>
+        <a href="#dolacz">JAK DOŁĄCZYĆ</a>
+        <a href="#galeria">GALERIA</a>
+      </div>
+      <div class="xbox">XBOX<br><small>DAYZ</small></div>
+    </nav>
 
-<header>
-  <div class="hero">
-    <h1>MARTWA STREFA</h1>
-    <p>Najbardziej klimatyczny serwer <span class="highlight">XBOX DAYZ</span></p>
+    <header id="top" class="hero">
+      <div>
+        <h1>MARTWA <span>STREFA</span></h1>
+        <div class="subtitle">XBOX DAYZ SERVER</div>
+        <div class="slogan">PRZETRWAJ ALBO ZGIŃ</div><br>
+        <a class="btn" href="#dolacz">DOŁĄCZ TERAZ ›</a>
+      </div>
+    </header>
 
-    <a href="#dolacz" class="btn">DOŁĄCZ TERAZ</a>
+    <section id="serwer">
+      <div class="cards">
+        <article class="card">
+          <img src="img/szaman-ognisko.png" alt="Klimat serwera Martwa Strefa" />
+          <div class="card-content">
+            <h3>☣ HARDCORE SURVIVAL</h3>
+            <p>Realistyczny klimat DayZ, niebezpieczne wyprawy, walka o loot, bazę i każdy kolejny dzień.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="img/martwa-strefa-banner.png" alt="PvP i rajdy" />
+          <div class="card-content">
+            <h3>⚔ PVP & RAJDY</h3>
+            <p>Walka o tereny, rajdy na bazy, zasadzki, sojusze i akcje, które zapamiętasz na długo.</p>
+          </div>
+        </article>
+        <article class="card">
+          <img src="img/szaman-postacie.png" alt="Administracja serwera" />
+          <div class="card-content">
+            <h3>☠ AKTYWNA EKIPA</h3>
+            <p>Właściciel SZAMAN dba o klimat, porządek, eventy oraz społeczność graczy Xbox.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="owner-grid panel">
+        <div class="owner-box">
+          <h2>WŁAŚCICIEL</h2>
+          <div class="name">SZAMAN</div>
+          <p>Serwer tworzony z pasją dla graczy, którzy lubią mroczny klimat, survival i uczciwą rozgrywkę. Nie ufaj nikomu. Przetrwaj sam.</p>
+        </div>
+        <div class="gallery">
+          <img src="img/szaman-ognisko.png" alt="Szaman przy ognisku" />
+          <img src="img/szaman-postacie.png" alt="Szaman i ocalały" />
+          <img src="img/martwa-strefa-logo.png" alt="Martwa Strefa logo" />
+        </div>
+      </div>
+    </section>
+
+    <section id="dolacz">
+      <div class="join">
+        <div class="panel">
+          <h2>JAK DOŁĄCZYĆ?</h2>
+          <div class="steps">
+            <div class="step"><strong>1</strong><span>WŁĄCZ DAYZ NA XBOX</span></div>
+            <div class="step"><strong>2</strong><span>WEJDŹ W COMMUNITY SERVERS</span></div>
+            <div class="step"><strong>3</strong><span>WYSZUKAJ MARTWA STREFA</span></div>
+            <div class="step"><strong>4</strong><span>DOŁĄCZ I PRZETRWAJ</span></div>
+          </div>
+        </div>
+        <div class="panel discord-box">
+          <h2>DISCORD</h2>
+          <p>Bądź na bieżąco z eventami, zasadami, aktualizacjami i społecznością.</p>
+          <a class="btn" href="https://discord.gg/6EDhrVGTnZ" target="_blank" rel="noopener">DOŁĄCZ NA DISCORD</a>
+          <div class="discord-link">https://discord.gg/6EDhrVGTnZ</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="galeria">
+      <h2>GALERIA</h2>
+      <div class="gallery">
+        <img src="img/szaman-ognisko.png" alt="Klimat Martwa Strefa" />
+        <img src="img/martwa-strefa-logo.png" alt="Logo Martwa Strefa" />
+        <img src="img/szaman-postacie.png" alt="Szaman" />
+      </div>
+    </section>
+
+    <footer>
+      <div>MARTWA STREFA | XBOX DAYZ SERVER</div>
+      <div>NIE UFAJ NIKOMU. PRZETRWAJ SAM.</div>
+    </footer>
   </div>
-</header>
-
-<section>
-  <h2>O Serwerze</h2>
-
-  <div class="cards">
-
-    <div class="card">
-      <h3>🔥 Survival</h3>
-      <p>
-        Walcz o przetrwanie, zbieraj loot, buduj bazy
-        i przetrwaj w świecie pełnym zagrożeń.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>⚔️ PvP & Eventy</h3>
-      <p>
-        Dynamiczne walki PvP, eventy administracji,
-        rajdy i specjalne nagrody dla graczy.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>🧟 Klimat DAYZ</h3>
-      <p>
-        Mroczny klimat, zombie, opuszczone miasta
-        i prawdziwa walka o życie.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<section class="owner">
-  <h2>Właściciel Serwera</h2>
-
-  <p>
-    👑 <span class="highlight">SZAMAN</span>
-  </p>
-
-  <br>
-
-  <p>
-    Administrator z klimatem i pasją do DAYZ.
-    Dba o porządek, eventy i dobrą zabawę dla całej społeczności.
-  </p>
-</section>
-
-<section id="dolacz" class="discord">
-  <h2>Jak Dołączyć?</h2>
-
-  <div class="discord-box">
-
-    <p><strong>1.</strong> Włącz DAYZ na Xbox</p>
-    <br>
-
-    <p><strong>2.</strong> Wejdź w zakładkę Community Servers</p>
-    <br>
-
-    <p><strong>3.</strong> Wyszukaj:</p>
-
-    <br>
-
-    <h3 style="color:#59ff7a; font-size:32px;">
-      MARTWA STREFA
-    </h3>
-
-    <br>
-
-    <p><strong>4.</strong> Dołącz i przetrwaj!</p>
-
-    <br><br>
-
-    <a href="https://discord.gg/6EDhrVGTnZ" class="btn" target="_blank">
-      DISCORD SERWERA
-    </a>
-
-  </div>
-</section>
-
-<section>
-  <h2>Dlaczego Warto?</h2>
-
-  <div class="cards">
-
-    <div class="card">
-      <h3>💀 Hardcore Klimat</h3>
-      <p>
-        Prawdziwy klimat apokalipsy i emocjonujące rozgrywki.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>🛡️ Aktywna Administracja</h3>
-      <p>
-        Administracja reaguje szybko i pomaga społeczności.
-      </p>
-    </div>
-
-    <div class="card">
-      <h3>🎁 Eventy i Nagrody</h3>
-      <p>
-        Regularne eventy, konkursy i wyjątkowe loot strefy.
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<footer>
-  © 2026 MARTWA STREFA XBOX DAYZ | Właściciel: SZAMAN
-</footer>
-
 </body>
 </html>
