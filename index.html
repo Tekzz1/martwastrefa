@@ -1,165 +1,539 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MARTWA STREFA | Xbox DayZ Server</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MARTWA STREFA | Xbox DayZ</title>
+
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: #050505;
-      color: #f2eadc;
-      font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', Arial, sans-serif;
-      letter-spacing: 1px;
-      overflow-x: hidden;
+    :root{
+      --green:#76d638;
+      --red:#9b1712;
+      --orange:#ff8b2c;
+      --cream:#efe2c7;
+      --muted:#b8aa96;
+      --border:rgba(142,82,38,.55);
     }
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,.25) 45%, rgba(0,0,0,.92) 100%),
-                  repeating-linear-gradient(0deg, rgba(255,255,255,.025) 0 1px, transparent 1px 3px);
-      pointer-events: none;
-      z-index: 50;
+
+    *{margin:0;padding:0;box-sizing:border-box}
+    html{scroll-behavior:smooth}
+
+    body{
+      background:#050403;
+      color:var(--cream);
+      font-family:Arial,Helvetica,sans-serif;
+      overflow-x:hidden;
     }
-    a { color: inherit; text-decoration: none; }
-    .page { width: min(1180px, 96%); margin: 0 auto; border-left: 1px solid rgba(130,70,30,.45); border-right: 1px solid rgba(130,70,30,.45); }
-    nav {
-      position: sticky; top: 0; z-index: 20;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 18px 34px;
-      background: rgba(5,5,5,.86); backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(130,70,30,.55);
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:#000;
+      z-index:9999;
+      pointer-events:none;
+      animation:start 2.2s ease forwards;
     }
-    .brand { display: flex; align-items: center; gap: 12px; color: #eee0c7; }
-    .brand img { width: 58px; height: 58px; object-fit: cover; border-radius: 8px; }
-    .brand strong { font-size: 30px; line-height: .85; text-shadow: 0 0 16px #000; }
-    .navlinks { display: flex; gap: 34px; font-size: 16px; color: #eee; }
-    .xbox { color: #6dc92f; font-size: 28px; }
-    .hero {
-      min-height: 720px;
-      background: linear-gradient(90deg, rgba(0,0,0,.85), rgba(0,0,0,.2), rgba(0,0,0,.9)),
-                  url('img/martwa-strefa-banner.png') center/cover no-repeat;
-      display: grid; place-items: center;
-      text-align: center; padding: 90px 20px 40px;
-      border-bottom: 1px solid rgba(130,70,30,.55);
+
+    @keyframes start{
+      0%{opacity:1}
+      70%{opacity:1}
+      100%{opacity:0;visibility:hidden}
     }
-    .hero h1 {
-      font-size: clamp(72px, 13vw, 170px);
-      line-height: .78;
-      color: #efe3c8;
-      text-shadow: 0 8px 0 #250202, 0 0 28px #000;
-      letter-spacing: 4px;
+
+    /* SPADAJĄCE KROPLE KRWI */
+    .blood-rain{
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:999;
+      overflow:hidden;
     }
-    .hero h1 span { display: block; color: #8e1512; }
-    .subtitle { margin: 25px auto 18px; font-size: clamp(26px, 4vw, 48px); color: #78c93a; }
-    .slogan { display: inline-block; padding: 12px 30px; background: rgba(100,0,0,.75); font-size: 24px; }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 12px;
-      margin-top: 34px; padding: 18px 38px;
-      border: 2px solid #6fc531; border-radius: 6px;
-      background: rgba(15,40,5,.8); color: #fff; font-size: 24px;
-      box-shadow: 0 0 22px rgba(111,197,49,.45);
-      transition: .25s;
+
+    .blood{
+      position:absolute;
+      top:-80px;
+      width:7px;
+      height:22px;
+      background:#8b0000;
+      border-radius:50% 50% 55% 55%;
+      box-shadow:0 0 14px rgba(180,0,0,.8);
+      animation:bloodFall linear infinite;
+      opacity:.85;
     }
-    .btn:hover { transform: scale(1.05); background: #6fc531; color: #071006; }
-    section { padding: 34px 24px; }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .card, .panel {
-      background: linear-gradient(180deg, rgba(15,15,15,.86), rgba(0,0,0,.96));
-      border: 1px solid rgba(130,70,30,.6);
-      box-shadow: inset 0 0 40px rgba(0,0,0,.8);
+
+    .blood::after{
+      content:"";
+      position:absolute;
+      bottom:-7px;
+      left:1px;
+      width:5px;
+      height:8px;
+      background:#5d0000;
+      border-radius:50%;
     }
-    .card img { width: 100%; height: 255px; object-fit: cover; display: block; filter: contrast(1.1) saturate(.85); }
-    .card-content { padding: 24px; }
-    h2 { color: #6fc531; font-size: 44px; margin-bottom: 16px; text-align: center; }
-    h3 { color: #6fc531; font-size: 30px; margin-bottom: 14px; }
-    p { font-family: Arial, sans-serif; letter-spacing: .2px; line-height: 1.6; font-size: 18px; color: #e4d7c7; }
-    .owner-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 20px; align-items: stretch; }
-    .owner-box { padding: 36px; display: flex; flex-direction: column; justify-content: center; }
-    .owner-box .name { font-size: 62px; color: #6fc531; }
-    .gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
-    .gallery img { width: 100%; height: 305px; object-fit: cover; border: 1px solid rgba(130,70,30,.6); }
-    .join { display: grid; grid-template-columns: 1.2fr .8fr; gap: 20px; }
-    .steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; padding: 28px; text-align: center; }
-    .step strong { display: block; font-size: 56px; color: #6fc531; }
-    .step span { font-family: Arial, sans-serif; font-size: 15px; color: #eee; }
-    .discord-box { padding: 36px; text-align: center; }
-    .discord-link { margin-top: 22px; font-family: Arial, sans-serif; color: #cfcfcf; word-break: break-all; }
-    footer { padding: 28px; border-top: 1px solid rgba(130,70,30,.55); display: flex; justify-content: space-between; color: #b7aa99; }
-    @media (max-width: 850px) {
-      nav { flex-direction: column; gap: 15px; }
-      .navlinks { flex-wrap: wrap; justify-content: center; gap: 18px; }
-      .cards, .owner-grid, .join, .steps { grid-template-columns: 1fr; }
-      .hero { min-height: 620px; }
-      .gallery { grid-template-columns: 1fr; }
-      footer { flex-direction: column; gap: 10px; text-align: center; }
+
+    @keyframes bloodFall{
+      0%{
+        transform:translateY(-120px) scale(.8);
+        opacity:0;
+      }
+      10%{opacity:.9}
+      100%{
+        transform:translateY(110vh) scale(1.2);
+        opacity:0;
+      }
+    }
+
+    .blood:nth-child(1){left:5%;animation-duration:7s;animation-delay:0s}
+    .blood:nth-child(2){left:12%;animation-duration:9s;animation-delay:1s}
+    .blood:nth-child(3){left:20%;animation-duration:6s;animation-delay:2s}
+    .blood:nth-child(4){left:28%;animation-duration:10s;animation-delay:.5s}
+    .blood:nth-child(5){left:36%;animation-duration:8s;animation-delay:1.5s}
+    .blood:nth-child(6){left:44%;animation-duration:11s;animation-delay:3s}
+    .blood:nth-child(7){left:52%;animation-duration:7s;animation-delay:2.3s}
+    .blood:nth-child(8){left:60%;animation-duration:9s;animation-delay:.8s}
+    .blood:nth-child(9){left:68%;animation-duration:6s;animation-delay:3.5s}
+    .blood:nth-child(10){left:76%;animation-duration:10s;animation-delay:1.8s}
+    .blood:nth-child(11){left:84%;animation-duration:8s;animation-delay:2.8s}
+    .blood:nth-child(12){left:92%;animation-duration:12s;animation-delay:.3s}
+
+    a{text-decoration:none;color:inherit}
+
+    .wrap{
+      width:min(1240px,96%);
+      margin:auto;
+      border-left:1px solid var(--border);
+      border-right:1px solid var(--border);
+    }
+
+    nav{
+      position:sticky;
+      top:0;
+      z-index:20;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:16px 34px;
+      background:rgba(5,5,5,.88);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid var(--border);
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+
+    .brand img{
+      width:60px;
+      height:60px;
+      object-fit:cover;
+      border-radius:8px;
+    }
+
+    .brand strong{
+      font-family:Impact,Arial Black,sans-serif;
+      font-size:30px;
+      line-height:.9;
+    }
+
+    .navlinks{
+      display:flex;
+      gap:24px;
+      font-size:14px;
+      font-weight:900;
+      letter-spacing:2px;
+    }
+
+    .navlinks a:hover{color:var(--green)}
+
+    .xbox{
+      color:var(--green);
+      font-weight:900;
+      text-align:right;
+      font-size:24px;
+    }
+
+    .hero{
+      min-height:790px;
+      display:grid;
+      place-items:center;
+      text-align:center;
+      padding:90px 22px;
+      background:
+        linear-gradient(90deg,rgba(0,0,0,.92),rgba(0,0,0,.28),rgba(0,0,0,.95)),
+        url("img/hero.jpg") center/cover no-repeat;
+      border-bottom:1px solid var(--border);
+    }
+
+    .hero-content{
+      animation:fadeUp 1.5s ease .8s both;
+    }
+
+    @keyframes fadeUp{
+      from{opacity:0;transform:translateY(35px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    .badge{
+      display:inline-block;
+      border:1px solid var(--green);
+      color:var(--green);
+      padding:10px 18px;
+      border-radius:999px;
+      font-weight:900;
+      letter-spacing:3px;
+      margin-bottom:20px;
+      background:rgba(0,0,0,.6);
+    }
+
+    .hero h1{
+      font-family:Impact,Arial Black,sans-serif;
+      font-size:clamp(76px,13vw,174px);
+      line-height:.78;
+      letter-spacing:5px;
+      color:#f2e4c9;
+      text-shadow:0 10px 0 #240403,0 0 35px #000;
+    }
+
+    .hero h1 span{
+      display:block;
+      color:var(--red);
+    }
+
+    .subtitle{
+      margin-top:24px;
+      font-family:Impact,Arial Black,sans-serif;
+      font-size:clamp(28px,4vw,56px);
+      letter-spacing:8px;
+      color:var(--green);
+      text-shadow:0 0 30px var(--green);
+    }
+
+    .slogan{
+      margin-top:16px;
+      display:inline-block;
+      padding:13px 34px;
+      background:rgba(105,6,5,.75);
+      border:1px solid rgba(255,139,44,.35);
+      font-size:22px;
+      letter-spacing:5px;
+      font-weight:900;
+    }
+
+    .btn{
+      display:inline-flex;
+      margin-top:32px;
+      padding:18px 36px;
+      border-radius:8px;
+      border:2px solid var(--green);
+      background:linear-gradient(180deg,rgba(42,90,17,.9),rgba(8,20,4,.96));
+      color:white;
+      font-weight:900;
+      letter-spacing:2px;
+      transition:.25s;
+      box-shadow:0 0 25px rgba(118,214,56,.45);
+    }
+
+    .btn:hover{
+      transform:scale(1.05);
+      background:var(--green);
+      color:#071006;
+    }
+
+    section{
+      padding:48px 26px;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:30px;
+    }
+
+    .section-title h2{
+      font-family:Impact,Arial Black,sans-serif;
+      font-size:52px;
+      letter-spacing:4px;
+      color:var(--green);
+    }
+
+    .section-title p{
+      color:var(--muted);
+      margin-top:10px;
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:22px;
+    }
+
+    .card,.panel{
+      background:linear-gradient(180deg,rgba(18,18,18,.9),rgba(0,0,0,.98));
+      border:1px solid var(--border);
+      box-shadow:0 16px 34px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+
+    .card:hover{
+      transform:translateY(-8px);
+      border-color:var(--green);
+      transition:.25s;
+    }
+
+    .card img{
+      width:100%;
+      height:265px;
+      object-fit:cover;
+      display:block;
+    }
+
+    .card-content{
+      padding:24px;
+    }
+
+    h3{
+      font-family:Impact,Arial Black,sans-serif;
+      color:var(--green);
+      font-size:30px;
+      letter-spacing:2px;
+      margin-bottom:14px;
+    }
+
+    p{
+      line-height:1.65;
+      color:#e0d4c2;
+      font-size:17px;
+    }
+
+    .owner{
+      display:grid;
+      grid-template-columns:1fr 1.35fr;
+      gap:22px;
+    }
+
+    .owner-text{
+      padding:38px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .name{
+      font-family:Impact,Arial Black,sans-serif;
+      font-size:72px;
+      color:var(--green);
+      letter-spacing:3px;
+    }
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+    }
+
+    .gallery img{
+      width:100%;
+      height:310px;
+      object-fit:cover;
+      border:1px solid var(--border);
+    }
+
+    .join{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:22px;
+    }
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+      padding:30px;
+      text-align:center;
+    }
+
+    .step strong{
+      display:block;
+      font-family:Impact,Arial Black,sans-serif;
+      font-size:62px;
+      color:var(--green);
+    }
+
+    .step span{
+      font-size:14px;
+      font-weight:900;
+      letter-spacing:1px;
+      color:#eee;
+    }
+
+    .discord{
+      padding:36px;
+      text-align:center;
+    }
+
+    .discord-link{
+      margin-top:18px;
+      color:#d7caba;
+      word-break:break-all;
+    }
+
+    .support{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:22px;
+    }
+
+    .support .panel{
+      padding:34px;
+    }
+
+    .support ul{
+      margin-top:16px;
+      padding-left:20px;
+      color:#e0d4c2;
+      line-height:1.8;
+    }
+
+    footer{
+      padding:30px;
+      border-top:1px solid var(--border);
+      display:flex;
+      justify-content:space-between;
+      color:#b7aa99;
+      font-weight:900;
+      letter-spacing:2px;
+    }
+
+    @media(max-width:900px){
+      nav{
+        flex-direction:column;
+        gap:14px;
+      }
+
+      .navlinks{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:15px;
+      }
+
+      .grid-3,.owner,.join,.support,.steps{
+        grid-template-columns:1fr;
+      }
+
+      .hero{
+        min-height:650px;
+      }
+
+      .gallery{
+        grid-template-columns:1fr;
+      }
+
+      footer{
+        flex-direction:column;
+        text-align:center;
+        gap:10px;
+      }
     }
   </style>
 </head>
+
 <body>
-  <div class="page">
+
+  <div class="blood-rain">
+    <span class="blood"></span>
+    <span class="blood"></span>
+    <span class="blood"></span>
+    <span class="blood"></span>
+    <span class="blood"></span>
+    <span class="blood"></span>
+    <span class="blood"></span>
+    <span class="blood"></span>
+    <span class="blood"></span>
+    <span class="blood"></span>
+    <span class="blood"></span>
+    <span class="blood"></span>
+  </div>
+
+  <div class="wrap">
+
     <nav>
       <a class="brand" href="#top">
-        <img src="img/martwa-strefa-logo.png" alt="Logo Martwa Strefa" />
+        <img src="img/logo.png" alt="Logo Martwa Strefa">
         <strong>MARTWA<br>STREFA</strong>
       </a>
+
       <div class="navlinks">
-        <a href="#top">STRONA GŁÓWNA</a>
-        <a href="#serwer">O SERWERZE</a>
+        <a href="#top">START</a>
+        <a href="#serwer">SERWER</a>
         <a href="#dolacz">JAK DOŁĄCZYĆ</a>
+        <a href="#wsparcie">WSPARCIE</a>
         <a href="#galeria">GALERIA</a>
       </div>
-      <div class="xbox">XBOX<br><small>DAYZ</small></div>
+
+      <div class="xbox">
+        XBOX<br>
+        <small>DAYZ</small>
+      </div>
     </nav>
 
     <header id="top" class="hero">
-      <div>
+      <div class="hero-content">
+        <div class="badge">XBOX COMMUNITY SERVER</div>
         <h1>MARTWA <span>STREFA</span></h1>
-        <div class="subtitle">XBOX DAYZ SERVER</div>
+        <div class="subtitle">DAYZ SERVER</div>
         <div class="slogan">PRZETRWAJ ALBO ZGIŃ</div><br>
-        <a class="btn" href="#dolacz">DOŁĄCZ TERAZ ›</a>
+        <a class="btn" href="#dolacz">DOŁĄCZ TERAZ</a>
       </div>
     </header>
 
     <section id="serwer">
-      <div class="cards">
+      <div class="section-title">
+        <h2>O SERWERZE</h2>
+        <p>Mroczny klimat, survival, PvP i społeczność Xbox.</p>
+      </div>
+
+      <div class="grid-3">
         <article class="card">
-          <img src="img/szaman-ognisko.png" alt="Klimat serwera Martwa Strefa" />
+          <img src="img/foto1.jpg" alt="Hardcore survival">
           <div class="card-content">
             <h3>☣ HARDCORE SURVIVAL</h3>
-            <p>Realistyczny klimat DayZ, niebezpieczne wyprawy, walka o loot, bazę i każdy kolejny dzień.</p>
+            <p>Zbieraj ekwipunek, buduj bazę i walcz o przetrwanie w świecie pełnym zagrożeń.</p>
           </div>
         </article>
+
         <article class="card">
-          <img src="img/martwa-strefa-banner.png" alt="PvP i rajdy" />
+          <img src="img/foto2.jpg" alt="PvP i rajdy">
           <div class="card-content">
             <h3>⚔ PVP & RAJDY</h3>
-            <p>Walka o tereny, rajdy na bazy, zasadzki, sojusze i akcje, które zapamiętasz na długo.</p>
+            <p>Rajdy na bazy, zasadzki, wojny ekip i mocne akcje, których nie zapomnisz.</p>
           </div>
         </article>
+
         <article class="card">
-          <img src="img/szaman-postacie.png" alt="Administracja serwera" />
+          <img src="img/foto3.jpg" alt="Aktywna ekipa">
           <div class="card-content">
             <h3>☠ AKTYWNA EKIPA</h3>
-            <p>Właściciel SZAMAN dba o klimat, porządek, eventy oraz społeczność graczy Xbox.</p>
+            <p>Właściciel SZAMAN dba o porządek, klimat, eventy i dobrą zabawę graczy.</p>
           </div>
         </article>
       </div>
     </section>
 
     <section>
-      <div class="owner-grid panel">
-        <div class="owner-box">
-          <h2>WŁAŚCICIEL</h2>
+      <div class="owner panel">
+        <div class="owner-text">
+          <h3>WŁAŚCICIEL</h3>
           <div class="name">SZAMAN</div>
-          <p>Serwer tworzony z pasją dla graczy, którzy lubią mroczny klimat, survival i uczciwą rozgrywkę. Nie ufaj nikomu. Przetrwaj sam.</p>
+          <p>Serwer tworzony z pasją dla graczy Xbox DayZ. Tu liczy się klimat, lojalność i instynkt przetrwania.</p>
         </div>
+
         <div class="gallery">
-          <img src="img/szaman-ognisko.png" alt="Szaman przy ognisku" />
-          <img src="img/szaman-postacie.png" alt="Szaman i ocalały" />
-          <img src="img/martwa-strefa-logo.png" alt="Martwa Strefa logo" />
+          <img src="img/foto4.jpg" alt="Galeria 1">
+          <img src="img/foto5.jpg" alt="Galeria 2">
+          <img src="img/foto6.jpg" alt="Galeria 3">
         </div>
       </div>
     </section>
@@ -167,29 +541,64 @@
     <section id="dolacz">
       <div class="join">
         <div class="panel">
-          <h2>JAK DOŁĄCZYĆ?</h2>
+          <div class="section-title">
+            <h2>JAK DOŁĄCZYĆ?</h2>
+          </div>
+
           <div class="steps">
             <div class="step"><strong>1</strong><span>WŁĄCZ DAYZ NA XBOX</span></div>
-            <div class="step"><strong>2</strong><span>WEJDŹ W COMMUNITY SERVERS</span></div>
+            <div class="step"><strong>2</strong><span>COMMUNITY SERVERS</span></div>
             <div class="step"><strong>3</strong><span>WYSZUKAJ MARTWA STREFA</span></div>
             <div class="step"><strong>4</strong><span>DOŁĄCZ I PRZETRWAJ</span></div>
           </div>
         </div>
-        <div class="panel discord-box">
-          <h2>DISCORD</h2>
-          <p>Bądź na bieżąco z eventami, zasadami, aktualizacjami i społecznością.</p>
-          <a class="btn" href="https://discord.gg/6EDhrVGTnZ" target="_blank" rel="noopener">DOŁĄCZ NA DISCORD</a>
+
+        <div class="panel discord">
+          <h3>DISCORD</h3>
+          <p>Dołącz do społeczności, sprawdź zasady, eventy, ogłoszenia i aktualizacje serwera.</p>
+          <a class="btn" href="https://discord.gg/6EDhrVGTnZ" target="_blank">DOŁĄCZ NA DISCORD</a>
           <div class="discord-link">https://discord.gg/6EDhrVGTnZ</div>
         </div>
       </div>
     </section>
 
+    <section id="wsparcie">
+      <div class="section-title">
+        <h2>WSPARCIE SERWERA</h2>
+        <p>Pomóż rozwijać Martwą Strefę i wspieraj kolejne eventy.</p>
+      </div>
+
+      <div class="support">
+        <div class="panel">
+          <h3>💀 NA CO IDZIE WSPARCIE?</h3>
+          <p>Wsparcie pomaga rozwijać społeczność, organizować eventy, nagrody i utrzymywać klimat serwera.</p>
+
+          <ul>
+            <li>eventy i nagrody dla graczy</li>
+            <li>rozwój serwera i społeczności</li>
+            <li>promocja i nowe pomysły</li>
+            <li>lepsza organizacja rozgrywki</li>
+          </ul>
+        </div>
+
+        <div class="panel">
+          <h3>☣ JAK WESPRZEĆ?</h3>
+          <p>Informacje o wsparciu znajdziesz na Discordzie. Wejdź na kanał serwera i napisz do administracji.</p>
+          <a class="btn" href="https://discord.gg/6EDhrVGTnZ" target="_blank">SPRAWDŹ NA DISCORD</a>
+        </div>
+      </div>
+    </section>
+
     <section id="galeria">
-      <h2>GALERIA</h2>
-      <div class="gallery">
-        <img src="img/szaman-ognisko.png" alt="Klimat Martwa Strefa" />
-        <img src="img/martwa-strefa-logo.png" alt="Logo Martwa Strefa" />
-        <img src="img/szaman-postacie.png" alt="Szaman" />
+      <div class="section-title">
+        <h2>FOTOGRAFIE</h2>
+        <p>Galeria serwera Martwa Strefa.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card"><img src="img/foto7.jpg" alt="Fotografia 1"></article>
+        <article class="card"><img src="img/foto8.jpg" alt="Fotografia 2"></article>
+        <article class="card"><img src="img/foto9.jpg" alt="Fotografia 3"></article>
       </div>
     </section>
 
@@ -197,6 +606,7 @@
       <div>MARTWA STREFA | XBOX DAYZ SERVER</div>
       <div>NIE UFAJ NIKOMU. PRZETRWAJ SAM.</div>
     </footer>
+
   </div>
 </body>
 </html>
