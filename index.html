@@ -12,7 +12,7 @@
       --orange:#ff8b2c;
       --cream:#efe2c7;
       --muted:#b8aa96;
-      --border:rgba(142,82,38,.55);
+      --border:rgba(142,82,38,.22);
     }
 
     *{margin:0;padding:0;box-sizing:border-box}
@@ -41,70 +41,77 @@
       100%{opacity:0;visibility:hidden}
     }
 
-    /* SPADAJĄCE KROPLE KRWI */
-    .blood-rain{
+    .toxic-fog{
+      position:fixed;
+      inset:-20%;
+      pointer-events:none;
+      z-index:1;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(118,214,56,.16), transparent 28%),
+        radial-gradient(circle at 80% 20%, rgba(255,139,44,.08), transparent 24%),
+        radial-gradient(circle at 50% 80%, rgba(118,214,56,.11), transparent 30%);
+      filter:blur(35px);
+      animation:fogMove 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes fogMove{
+      from{transform:translateX(-4%) translateY(2%) scale(1)}
+      to{transform:translateX(4%) translateY(-2%) scale(1.08)}
+    }
+
+    .radioactive-fall{
       position:fixed;
       inset:0;
       pointer-events:none;
-      z-index:999;
-      overflow:hidden;
+      z-index:3;
+      opacity:.15;
+      background-image:
+        radial-gradient(circle, rgba(118,214,56,.95) 0 1.5px, transparent 2.8px),
+        radial-gradient(circle, rgba(255,139,44,.72) 0 1.2px, transparent 2.6px),
+        radial-gradient(circle, rgba(118,214,56,.38) 0 3px, transparent 6px),
+        radial-gradient(circle, rgba(210,255,120,.55) 0 1px, transparent 3px);
+      background-size:110px 110px, 170px 170px, 260px 260px, 360px 360px;
+      background-position:0 -120px, 45px -180px, 90px -260px, 130px -360px;
+      animation:radioFall 16s linear infinite;
+      filter:drop-shadow(0 0 8px rgba(118,214,56,.85));
+      mix-blend-mode:screen;
     }
 
-    .blood{
-      position:absolute;
-      top:-80px;
-      width:7px;
-      height:22px;
-      background:#8b0000;
-      border-radius:50% 50% 55% 55%;
-      box-shadow:0 0 14px rgba(180,0,0,.8);
-      animation:bloodFall linear infinite;
-      opacity:.85;
-    }
-
-    .blood::after{
+    .radioactive-fall::before{
       content:"";
       position:absolute;
-      bottom:-7px;
-      left:1px;
-      width:5px;
-      height:8px;
-      background:#5d0000;
-      border-radius:50%;
+      inset:-25%;
+      background:
+        radial-gradient(circle at 25% 0%, rgba(118,214,56,.18), transparent 28%),
+        radial-gradient(circle at 70% 10%, rgba(118,214,56,.12), transparent 24%),
+        radial-gradient(circle at 50% 35%, rgba(255,139,44,.08), transparent 30%);
+      filter:blur(26px);
+      animation:radioCloud 13s ease-in-out infinite alternate;
     }
 
-    @keyframes bloodFall{
-      0%{
-        transform:translateY(-120px) scale(.8);
-        opacity:0;
+    @keyframes radioFall{
+      from{
+        background-position:0 -120px, 45px -180px, 90px -260px, 130px -360px;
       }
-      10%{opacity:.9}
-      100%{
-        transform:translateY(110vh) scale(1.2);
-        opacity:0;
+      to{
+        background-position:45px 950px, -40px 1050px, 130px 1180px, -80px 1300px;
       }
     }
 
-    .blood:nth-child(1){left:5%;animation-duration:7s;animation-delay:0s}
-    .blood:nth-child(2){left:12%;animation-duration:9s;animation-delay:1s}
-    .blood:nth-child(3){left:20%;animation-duration:6s;animation-delay:2s}
-    .blood:nth-child(4){left:28%;animation-duration:10s;animation-delay:.5s}
-    .blood:nth-child(5){left:36%;animation-duration:8s;animation-delay:1.5s}
-    .blood:nth-child(6){left:44%;animation-duration:11s;animation-delay:3s}
-    .blood:nth-child(7){left:52%;animation-duration:7s;animation-delay:2.3s}
-    .blood:nth-child(8){left:60%;animation-duration:9s;animation-delay:.8s}
-    .blood:nth-child(9){left:68%;animation-duration:6s;animation-delay:3.5s}
-    .blood:nth-child(10){left:76%;animation-duration:10s;animation-delay:1.8s}
-    .blood:nth-child(11){left:84%;animation-duration:8s;animation-delay:2.8s}
-    .blood:nth-child(12){left:92%;animation-duration:12s;animation-delay:.3s}
+    @keyframes radioCloud{
+      from{transform:translateY(-8%) translateX(-3%) scale(1)}
+      to{transform:translateY(8%) translateX(3%) scale(1.08)}
+    }
 
     a{text-decoration:none;color:inherit}
 
     .wrap{
       width:min(1240px,96%);
       margin:auto;
-      border-left:1px solid var(--border);
-      border-right:1px solid var(--border);
+      border-left:1px solid rgba(142,82,38,.16);
+      border-right:1px solid rgba(142,82,38,.16);
+      position:relative;
+      z-index:2;
     }
 
     nav{
@@ -115,9 +122,9 @@
       align-items:center;
       justify-content:space-between;
       padding:16px 34px;
-      background:rgba(5,5,5,.88);
+      background:rgba(5,5,5,.82);
       backdrop-filter:blur(12px);
-      border-bottom:1px solid var(--border);
+      border-bottom:1px solid rgba(142,82,38,.22);
     }
 
     .brand{
@@ -165,7 +172,7 @@
       background:
         linear-gradient(90deg,rgba(0,0,0,.92),rgba(0,0,0,.28),rgba(0,0,0,.95)),
         url("img/hero.jpg") center/cover no-repeat;
-      border-bottom:1px solid var(--border);
+      border-bottom:1px solid rgba(142,82,38,.22);
     }
 
     .hero-content{
@@ -216,8 +223,8 @@
       margin-top:16px;
       display:inline-block;
       padding:13px 34px;
-      background:rgba(105,6,5,.75);
-      border:1px solid rgba(255,139,44,.35);
+      background:rgba(105,6,5,.65);
+      border:1px solid rgba(255,139,44,.25);
       font-size:22px;
       letter-spacing:5px;
       font-weight:900;
@@ -234,7 +241,7 @@
       font-weight:900;
       letter-spacing:2px;
       transition:.25s;
-      box-shadow:0 0 25px rgba(118,214,56,.45);
+      box-shadow:0 0 25px rgba(118,214,56,.35);
     }
 
     .btn:hover{
@@ -270,24 +277,43 @@
       gap:22px;
     }
 
+    .gallery-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+    }
+
     .card,.panel{
-      background:linear-gradient(180deg,rgba(18,18,18,.9),rgba(0,0,0,.98));
-      border:1px solid var(--border);
-      box-shadow:0 16px 34px rgba(0,0,0,.35);
+      background:linear-gradient(180deg,rgba(18,18,18,.52),rgba(0,0,0,.72));
+      border:1px solid rgba(142,82,38,.22);
+      box-shadow:0 16px 34px rgba(0,0,0,.22);
+      backdrop-filter:blur(6px);
       overflow:hidden;
     }
 
     .card:hover{
       transform:translateY(-8px);
-      border-color:var(--green);
+      border-color:rgba(118,214,56,.65);
       transition:.25s;
     }
 
     .card img{
       width:100%;
       height:265px;
-      object-fit:cover;
+      object-fit:contain;
+      object-position:center;
       display:block;
+      background:#030302;
+      padding:6px;
+    }
+
+    .gallery-grid .card img{
+      height:245px;
+      cursor:pointer;
+      object-fit:contain;
+      object-position:center;
+      background:#030302;
+      padding:6px;
     }
 
     .card-content{
@@ -328,17 +354,20 @@
       letter-spacing:3px;
     }
 
-    .gallery{
+    .owner-gallery{
       display:grid;
       grid-template-columns:repeat(3,1fr);
       gap:12px;
     }
 
-    .gallery img{
+    .owner-gallery img{
       width:100%;
       height:310px;
-      object-fit:cover;
-      border:1px solid var(--border);
+      object-fit:contain;
+      object-position:center;
+      background:#030302;
+      padding:6px;
+      border:1px solid rgba(142,82,38,.22);
     }
 
     .join{
@@ -397,9 +426,39 @@
       line-height:1.8;
     }
 
+    .lightbox{
+      display:none;
+      position:fixed;
+      inset:0;
+      z-index:99999;
+      background:rgba(0,0,0,.94);
+      place-items:center;
+      padding:22px;
+    }
+
+    .lightbox:target{
+      display:grid;
+    }
+
+    .lightbox img{
+      max-width:96vw;
+      max-height:92vh;
+      object-fit:contain;
+      border:1px solid rgba(118,214,56,.45);
+      box-shadow:0 0 45px rgba(118,214,56,.22);
+    }
+
+    .lightbox a{
+      display:grid;
+      place-items:center;
+      width:100%;
+      height:100%;
+      cursor:zoom-out;
+    }
+
     footer{
       padding:30px;
-      border-top:1px solid var(--border);
+      border-top:1px solid rgba(142,82,38,.22);
       display:flex;
       justify-content:space-between;
       color:#b7aa99;
@@ -419,7 +478,7 @@
         gap:15px;
       }
 
-      .grid-3,.owner,.join,.support,.steps{
+      .grid-3,.owner,.join,.support,.steps,.gallery-grid{
         grid-template-columns:1fr;
       }
 
@@ -427,7 +486,7 @@
         min-height:650px;
       }
 
-      .gallery{
+      .owner-gallery{
         grid-template-columns:1fr;
       }
 
@@ -442,20 +501,8 @@
 
 <body>
 
-  <div class="blood-rain">
-    <span class="blood"></span>
-    <span class="blood"></span>
-    <span class="blood"></span>
-    <span class="blood"></span>
-    <span class="blood"></span>
-    <span class="blood"></span>
-    <span class="blood"></span>
-    <span class="blood"></span>
-    <span class="blood"></span>
-    <span class="blood"></span>
-    <span class="blood"></span>
-    <span class="blood"></span>
-  </div>
+  <div class="toxic-fog"></div>
+  <div class="radioactive-fall"></div>
 
   <div class="wrap">
 
@@ -530,7 +577,7 @@
           <p>Serwer tworzony z pasją dla graczy Xbox DayZ. Tu liczy się klimat, lojalność i instynkt przetrwania.</p>
         </div>
 
-        <div class="gallery">
+        <div class="owner-gallery">
           <img src="img/foto4.jpg" alt="Galeria 1">
           <img src="img/foto5.jpg" alt="Galeria 2">
           <img src="img/foto6.jpg" alt="Galeria 3">
@@ -583,8 +630,8 @@
 
         <div class="panel">
           <h3>☣ JAK WESPRZEĆ?</h3>
-          <p>Informacje o wsparciu znajdziesz na Discordzie. Wejdź na kanał serwera i napisz do administracji.</p>
-          <a class="btn" href="https://discord.gg/6EDhrVGTnZ" target="_blank">SPRAWDŹ NA DISCORD</a>
+          <p>Wesprzyj serwer przez zrzutkę. Każda pomoc idzie na rozwój Martwej Strefy, eventy i nagrody dla graczy.</p>
+          <a class="btn" href="https://zrzutka.pl/fpehp2" target="_blank">WESPRZYJ SERWER</a>
         </div>
       </div>
     </section>
@@ -592,14 +639,28 @@
     <section id="galeria">
       <div class="section-title">
         <h2>FOTOGRAFIE</h2>
-        <p>Galeria serwera Martwa Strefa.</p>
+        <p>Kliknij zdjęcie, aby otworzyć je na cały ekran.</p>
       </div>
 
-      <div class="grid-3">
-        <article class="card"><img src="img/foto7.jpg" alt="Fotografia 1"></article>
-        <article class="card"><img src="img/foto8.jpg" alt="Fotografia 2"></article>
-        <article class="card"><img src="img/foto9.jpg" alt="Fotografia 3"></article>
+      <div class="gallery-grid">
+        <article class="card"><a href="#foto7"><img src="img/foto7.jpg" alt="Fotografia 7"></a></article>
+        <article class="card"><a href="#foto8"><img src="img/foto8.jpg" alt="Fotografia 8"></a></article>
+        <article class="card"><a href="#foto9"><img src="img/foto9.jpg" alt="Fotografia 9"></a></article>
+        <article class="card"><a href="#foto10"><img src="img/foto10.jpg" alt="Fotografia 10"></a></article>
+        <article class="card"><a href="#foto11"><img src="img/foto11.jpg" alt="Fotografia 11"></a></article>
+        <article class="card"><a href="#foto12"><img src="img/foto12.jpg" alt="Fotografia 12"></a></article>
+        <article class="card"><a href="#foto13"><img src="img/foto13.jpg" alt="Fotografia 13"></a></article>
+        <article class="card"><a href="#foto14"><img src="img/foto14.jpg" alt="Fotografia 14"></a></article>
       </div>
+
+      <div id="foto7" class="lightbox"><a href="#galeria"><img src="img/foto7.jpg" alt="Fotografia 7"></a></div>
+      <div id="foto8" class="lightbox"><a href="#galeria"><img src="img/foto8.jpg" alt="Fotografia 8"></a></div>
+      <div id="foto9" class="lightbox"><a href="#galeria"><img src="img/foto9.jpg" alt="Fotografia 9"></a></div>
+      <div id="foto10" class="lightbox"><a href="#galeria"><img src="img/foto10.jpg" alt="Fotografia 10"></a></div>
+      <div id="foto11" class="lightbox"><a href="#galeria"><img src="img/foto11.jpg" alt="Fotografia 11"></a></div>
+      <div id="foto12" class="lightbox"><a href="#galeria"><img src="img/foto12.jpg" alt="Fotografia 12"></a></div>
+      <div id="foto13" class="lightbox"><a href="#galeria"><img src="img/foto13.jpg" alt="Fotografia 13"></a></div>
+      <div id="foto14" class="lightbox"><a href="#galeria"><img src="img/foto14.jpg" alt="Fotografia 14"></a></div>
     </section>
 
     <footer>
